@@ -2,6 +2,10 @@ package com.example.todolist.service;
 
 import com.example.todolist.domain.Card;
 import com.example.todolist.domain.Column;
+import com.example.todolist.dto.CardRequestDTO;
+import com.example.todolist.exception.ColumnNotFoundException;
+import com.example.todolist.repository.CardRepository;
+import com.example.todolist.repository.ColumnRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
