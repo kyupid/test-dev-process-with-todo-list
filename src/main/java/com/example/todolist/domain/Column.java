@@ -1,9 +1,6 @@
 package com.example.todolist.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,7 +12,7 @@ public class Column extends Core {
 
     private String type;
 
-    @OneToMany(mappedBy = "column")
+    @OneToMany(mappedBy = "column", fetch = FetchType.LAZY)
     private List<Card> cards;
 
     protected Column() {

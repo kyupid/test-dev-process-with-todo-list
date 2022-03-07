@@ -13,11 +13,18 @@ public class Card extends Core {
     private String content;
     private String author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "column_id")
     private Column column;
 
     protected Card() {
 
+    }
+
+    public Card(String title, String content, String author, Column column) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.column = column;
     }
 }
