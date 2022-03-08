@@ -9,8 +9,9 @@ import com.example.todolist.repository.ColumnRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
@@ -19,20 +20,31 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class CardServiceTest {
 
-    @MockBean
+    @Mock
     private CardRepository cardRepository;
 
-    @MockBean
+    @Mock
     private ColumnRepository columnRepository;
 
-    @MockBean
+    @Mock
     private Column column;
 
-    @MockBean
+    @Mock
     private CardRequestDTO cardRequest;
 
-    @MockBean
-    CardService cardService;
+    @InjectMocks
+    private CardService cardService;
+
+    @Test
+    @DisplayName("의존성 없는 단일 Repository 테스트")
+    void testRepository() {
+        //given
+        Card card = mock(Card.class);
+        //when
+        cardRepository.save(card);
+        //then
+        verify(cardRepository, times(1)).save(any(Card.class));
+    }
 
     @Test
     @DisplayName("카드 추가 기능 테스트")

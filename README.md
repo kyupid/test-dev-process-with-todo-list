@@ -65,6 +65,8 @@ dependencies {
 
 - EAGER: 그 반대임
 
+## [Mockito 테스트가 실패하는 문제 해결하기 ->](https://github.com/kyupid/test-dev-process-with-todo-list/issues/1)
+
 
 ## 레퍼런스
 https://github.com/kimnayeon0108/Todo-list
