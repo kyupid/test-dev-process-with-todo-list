@@ -35,6 +35,17 @@ public class CardServiceTest {
     CardService cardService;
 
     @Test
+    @DisplayName("의존성 없는 단일 Repository 테스트")
+    void testRepository() {
+        //given
+        Card card = mock(Card.class);
+        //when
+        cardRepository.save(card);
+        //then
+        verify(cardRepository, times(1)).save(any(Card.class));
+    }
+
+    @Test
     @DisplayName("카드 추가 기능 테스트")
     void addCard() {
         Long columnId = 1L;
