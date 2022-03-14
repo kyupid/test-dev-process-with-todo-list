@@ -4,7 +4,7 @@
 ## 목표
 
 - TDD 이전에 T는 무엇인가
-- 따라해보며 테스트가 대충 이런거다 느껴보기
+- [이거](https://github.com/kimnayeon0108/Todo-list) 따라해보며 테스트가 대충 이런거다 느껴보기
 - JUnit & Mockito 대략적으로 익히기
 
 ## 의존성
