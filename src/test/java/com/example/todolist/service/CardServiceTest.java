@@ -3,6 +3,7 @@ package com.example.todolist.service;
 import com.example.todolist.domain.Card;
 import com.example.todolist.domain.Column;
 import com.example.todolist.dto.CardAddRequestDTO;
+import com.example.todolist.dto.CardUpdateRequestDto;
 import com.example.todolist.exception.ColumnNotFoundException;
 import com.example.todolist.repository.CardRepository;
 import com.example.todolist.repository.ColumnRepository;
@@ -16,10 +17,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CardServiceTest {
+
+    @Mock
+    private Card card;
 
     @Mock
     private CardRepository cardRepository;
@@ -32,6 +37,9 @@ public class CardServiceTest {
 
     @Mock
     private CardAddRequestDTO cardRequest;
+
+    @Mock
+    private CardUpdateRequestDto cardUpdateRequestDto;
 
     @InjectMocks
     private CardService cardService;
@@ -77,6 +85,31 @@ public class CardServiceTest {
         Assertions.assertThrows(ColumnNotFoundException.class, () -> cardService.addCard(columnId, cardRequest));
 
         // 고로 save는 한번도 호출하지 않아야한다
+        verify(cardRepository, never()).save(any(Card.class));
+    }
+
+    @Test
+    @DisplayName("카드 수정 기능 테스트")
+    void updateCard() {
+        when(columnRepository.findById(anyLong())).thenReturn(Optional.of(column));
+        when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
+        when(cardUpdateRequestDto.getTitle()).thenReturn("");
+        when(cardUpdateRequestDto.getContent()).thenReturn("");
+
+        cardService.updateCard(1L, 1L, cardUpdateRequestDto);
+
+        verify(card, times(1)).update(anyString(), anyString(), any(Column.class));
+        verify(cardRepository, times(1)).save(any(Card.class));
+    }
+
+    @Test
+    @DisplayName("카드가 없을 시 CardNotFoundException 발생")
+    void throwExceptionIfCardNotPresent() {
+        when(columnRepository.findById(anyLong())).thenReturn(Optional.of(column));
+        when(cardRepository.findById(anyLong())).thenThrow(CardNotFoundException.class);
+
+        assertThatThrownBy(() -> cardService.updateCard(1L, 1L, cardUpdateRequestDto)).isInstanceOf(CardNotFoundException.class);
+
         verify(cardRepository, never()).save(any(Card.class));
     }
 }
