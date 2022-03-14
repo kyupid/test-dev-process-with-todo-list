@@ -128,7 +128,7 @@ public class CardServiceTest {
     @Test
     @DisplayName("컬럼 id와 카드의 컬럼 id가 다를때 ColumnNotMatchException 발생")
     void throwExceptionIfColumnNotMatch() {
-        when(card.isSameColumnId(anyLong(), anyLong())).thenReturn(false);
+        when(card.isSameColumnId(anyLong())).thenReturn(false);
 
         assertThatThrownBy(() -> cardService.delete(1L, 1L)).isInstanceOf(ColumnNotFoundException.class);
 
