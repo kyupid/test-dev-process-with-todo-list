@@ -27,4 +27,10 @@ public class Card extends Core {
         this.author = author;
         this.column = column;
     }
+
+    public void update(String title, String content, Column column) {
+        this.title = title;
+        this.content = content;
+        this.column = column;
+    }
 }

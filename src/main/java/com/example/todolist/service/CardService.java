@@ -3,6 +3,7 @@ package com.example.todolist.service;
 import com.example.todolist.domain.Card;
 import com.example.todolist.domain.Column;
 import com.example.todolist.dto.CardAddRequestDTO;
+import com.example.todolist.dto.CardUpdateRequestDto;
 import com.example.todolist.exception.ColumnNotFoundException;
 import com.example.todolist.repository.CardRepository;
 import com.example.todolist.repository.ColumnRepository;
