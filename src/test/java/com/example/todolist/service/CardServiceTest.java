@@ -113,4 +113,26 @@ public class CardServiceTest {
 
         verify(cardRepository, never()).save(any(Card.class));
     }
+
+    @Test
+    @DisplayName("카드 삭제 기능 테스트")
+    public void deleteCard() {
+        when(columnRepository.findById(anyLong())).thenReturn(Optional.of(column));
+        when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
+
+        cardService.delete(1L, 1L);
+
+        verify(cardRepository, times(1)).delete(any(Card.class));
+    }
+
+    @Test
+    @DisplayName("컬럼 id와 카드의 컬럼 id가 다를때 ColumnNotMatchException 발생")
+    void throwExceptionIfColumnNotMatch() {
+        when(card.isSameColumnId(anyLong(), anyLong())).thenReturn(false);
+
+        assertThatThrownBy(() -> cardService.delete(1L, 1L)).isInstanceOf(ColumnNotFoundException.class);
+
+        verify(cardRepository, times(1)).delete(any(Card.class));
+
+    }
 }

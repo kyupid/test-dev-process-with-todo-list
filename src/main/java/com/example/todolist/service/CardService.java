@@ -32,4 +32,8 @@ public class CardService {
 
         return cardRepository.save(card);
     }
+
+    public void delete(long columnId, long cardId) {
+
+    }
 }
