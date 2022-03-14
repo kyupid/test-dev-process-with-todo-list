@@ -6,6 +6,7 @@ import com.example.todolist.dto.CardAddRequestDTO;
 import com.example.todolist.dto.CardUpdateRequestDto;
 import com.example.todolist.exception.CardNotFoundException;
 import com.example.todolist.exception.ColumnNotFoundException;
+import com.example.todolist.exception.ColumnNotMatchException;
 import com.example.todolist.repository.CardRepository;
 import com.example.todolist.repository.ColumnRepository;
 import org.junit.jupiter.api.Assertions;
@@ -117,8 +118,8 @@ public class CardServiceTest {
     @Test
     @DisplayName("카드 삭제 기능 테스트")
     public void deleteCard() {
-        when(columnRepository.findById(anyLong())).thenReturn(Optional.of(column));
         when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
+        when(card.hasSameColumnId(anyLong())).thenReturn(true);
 
         cardService.delete(1L, 1L);
 
@@ -128,11 +129,12 @@ public class CardServiceTest {
     @Test
     @DisplayName("컬럼 id와 카드의 컬럼 id가 다를때 ColumnNotMatchException 발생")
     void throwExceptionIfColumnNotMatch() {
-        when(card.isSameColumnId(anyLong())).thenReturn(false);
+        when(cardRepository.findById(anyLong())).thenReturn(Optional.of(card));
+        when(card.hasSameColumnId(anyLong())).thenReturn(false);
 
-        assertThatThrownBy(() -> cardService.delete(1L, 1L)).isInstanceOf(ColumnNotFoundException.class);
+        assertThatThrownBy(() -> cardService.delete(1L, 1L)).isInstanceOf(ColumnNotMatchException.class);
 
-        verify(cardRepository, times(1)).delete(any(Card.class));
+        verify(cardRepository, never()).delete(any(Card.class));
 
     }
 }
