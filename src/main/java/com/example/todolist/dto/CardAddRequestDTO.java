@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CardRequestDTO {
+public class CardAddRequestDTO {
 
     private String title;
     private String content;
