@@ -18,10 +18,12 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final ColumnRepository columnRepository;
+    private final LogService logService;
 
     public void addCard(Long columnId, CardAddRequestDTO cardRequest) {
         Column column = columnRepository.findById(columnId).orElseThrow(ColumnNotFoundException::new);
         Card card = new Card(cardRequest.getTitle(), cardRequest.getContent(), cardRequest.getAuthor(), column);
+        logService.createLog(card);
         cardRepository.save(card);
     }
 

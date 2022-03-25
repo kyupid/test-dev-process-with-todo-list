@@ -1,8 +1,11 @@
 package com.example.todolist.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Card extends Core {
 
     @Id
