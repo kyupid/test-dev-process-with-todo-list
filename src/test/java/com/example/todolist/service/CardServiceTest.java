@@ -46,6 +46,9 @@ public class CardServiceTest {
     @InjectMocks
     private CardService cardService;
 
+    @Mock
+    private LogService logService;
+
     @Test
     @DisplayName("의존성 없는 단일 Repository 테스트")
     void testRepository() {
@@ -71,6 +74,7 @@ public class CardServiceTest {
         // 그 column에 repository를 통해서 card를 save할것이다
         cardService.addCard(columnId, cardRequest);
 
+        verify(logService, times(1)).createLog(any(Card.class));
         // cardRepository가 한번호출되었고 Card가 저장되었는지 verify한다
         verify(cardRepository, times(1)).save(any(Card.class));
     }
