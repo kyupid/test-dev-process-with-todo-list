@@ -1,6 +1,8 @@
 package com.example.todolist.service;
 
+import com.example.todolist.domain.Actions;
 import com.example.todolist.domain.Card;
+import com.example.todolist.domain.Column;
 import com.example.todolist.domain.Log;
 import com.example.todolist.repository.LogRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -29,10 +31,16 @@ public class LogServiceTest {
     @Mock
     private LogRepository logRepository;
 
+    @Mock
+    private Actions action;
+
+    @Mock
+    private Column column;
+
     @Test
     @DisplayName("로그 추가 기능 테스트")
     void createLog() {
-        logService.createLog(card);
+        logService.createLog(card, action, column);
 
         verify(logRepository, times(1)).save(any(Log.class));
     }
