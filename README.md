@@ -55,15 +55,6 @@ dependencies {
         verify(cardRepository, never()).save(any(Card.class));
     }
 ```
-## JPA, FetchType.LAZY vs EAGER
-
-- LAZY: 예를들어 Card-Column 간에서 카드를 조회할때 Column을 항시 같이 조회하게 되는데 Column은 필요없을때가 있다.
-이럴때 LAZY를 쓰면 Column은 프록시 엔티티가 생성되어 조회할때 쓸모없는 쿼리를 생성하지않는다
-  
-![](https://github.com/namjunemy/TIL/blob/master/Jpa/inflearn/img/32_lazy.PNG?raw=true)
-사진: https://ict-nroo.tistory.com/132
-
-- EAGER: 그 반대임
 
 ## [Mockito 테스트가 실패하는 문제 해결하기 ->](https://github.com/kyupid/test-dev-process-with-todo-list/issues/1)
 
